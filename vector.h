@@ -103,14 +103,14 @@ public:
         if (m_size >= m_capacity) {
             reallocate_capacity(m_capacity + 0.5 * m_capacity + 1);
         }
-        m_buffer[m_size++] = new_element;
+        new(&m_buffer[m_size++]) T(new_element);
     }
 
     void push_back(const T&& new_element) {
         if (m_size >= m_capacity) {
             reallocate_capacity(m_capacity + 0.5 * m_capacity + 1);
         }
-        m_buffer[m_size++] = std::move(new_element);
+        new(&m_buffer[m_size++]) T(std::move(new_element));
     }
 
     template<typename... Args>
